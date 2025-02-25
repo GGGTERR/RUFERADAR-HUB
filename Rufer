@@ -1475,25 +1475,39 @@ local usertab = Window:CreateTab("User Functions", 7743876054)
 			CurrentValue = false,
 			Flag = "AntiGrab", 
 			Callback = function(Value)
-				antiGrabToggle = Value
-				while antiGrabToggle and task.wait() do
-					local v2, v3, v1 = get_all()
-					if v1 and v2 and check_hum(v3) then
-						if v1:FindFirstChild("PartOwner") then
-							local v4 = v1.PartOwner.Value; if v4 then 
-								local v5 = S.w.chars:FindFirstChild(v4); if v5 and check_prem(v5) and check_whll(v5) then
-									task.spawn(After_AG, v5)
-								end
-							end
-							v2.Anchored = true
-							while O.me.IsHeld.Value and task.wait() do O.Events.StruggleEvent:FireServer(O.me) end
-							task.wait(0.3)
-							v2.Anchored = false
-						end
-					end
+local LocalPlayer = game.Players.LocalPlayer 
+local ReplicatedStorage = game:GetService"ReplicatedStorage"
+local RunService = game:GetService"RunService"
+local antiGrabCoroutine = nil
+local CharacterEvents = ReplicatedStorage:WaitForChild("CharacterEvents")
+local Struggle = ReplicatedStorage.CharacterEvents:WaitForChild("Struggle")
+local RagdollRemote = CharacterEvents:WaitForChild("RagdollRemote")
+
+antiGrabCoroutine = RunService.Heartbeat:Connect(function()
+	local character = LocalPlayer.Character
+	if character and character:FindFirstChild("Head") then
+		local head = character.Head
+		local partOwner = head:FindFirstChild("PartOwner")
+		if partOwner then
+			Struggle:FireServer()
+			RagdollRemote:FireServer(character.HumanoidRootPart, 0)
+			ReplicatedStorage.GameCorrectionEvents.StopAllVelocity:FireServer()
+			for _, part in pairs(character:GetChildren()) do
+				if part:IsA("BasePart") then
+					part.Anchored = true
 				end
-			end,
-		})
+			end
+			while LocalPlayer.IsHeld.Value do
+				wait()
+			end
+			for _, part in pairs(character:GetChildren()) do
+				if part:IsA("BasePart") then
+					part.Anchored = false
+				end
+			end
+		end
+	end
+end)
 
 		usertab:CreateDropdown({
 			Name = "Function after Anti Grab",
