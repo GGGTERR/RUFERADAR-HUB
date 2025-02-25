@@ -1338,7 +1338,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --GUI--
 local Window = Rayfield:CreateWindow({
-    Name = "Vhs v6 (Made By Jose /verbal hub)",
+    Name = "RUFE HUB (PREMIUM)",
     Icon = 0,
     LoadingTitle = "Vhs V6",
     LoadingSubtitle = "By Jose",
