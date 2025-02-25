@@ -1,7 +1,6 @@
 print("start")
 _G.heart="â™¥"
 _G.f2="ðŸ—"
-
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 --â™¥localsâ™¥
 	local S = {
@@ -1339,9 +1338,9 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --GUI--
 local Window = Rayfield:CreateWindow({
-    Name = "RUFER (Made in KLL)",
+    Name = "Vhs v6 (Made By Jose /verbal hub)",
     Icon = 0,
-    LoadingTitle = "RUFER",
+    LoadingTitle = "Vhs V6",
     LoadingSubtitle = "By Jose",
     Theme = "Default",
  
@@ -1468,50 +1467,6 @@ local usertab = Window:CreateTab("User Functions", 7743876054)
 				StrenghtToggle:Set(not(sila))
 			end,
 		})
-
-function antiGrab1F()
- local LocalPlayer = game.Players.LocalPlayer 
-local ReplicatedStorage = game:GetService"ReplicatedStorage"
-local RunService = game:GetService"RunService"
-local antiGrabCoroutine = nil
-local CharacterEvents = ReplicatedStorage:WaitForChild("CharacterEvents")
-local Struggle = ReplicatedStorage.CharacterEvents:WaitForChild("Struggle")
-local RagdollRemote = CharacterEvents:WaitForChild("RagdollRemote")
-
-antiGrabCoroutine = RunService.Heartbeat:Connect(function()
-	local character = LocalPlayer.Character
-	if character and character:FindFirstChild("Head") then
-		local head = character.Head
-		local partOwner = head:FindFirstChild("PartOwner")
-		if partOwner then
-			Struggle:FireServer()
-			RagdollRemote:FireServer(character.HumanoidRootPart, 0)
-			ReplicatedStorage.GameCorrectionEvents.StopAllVelocity:FireServer()
-			for _, part in pairs(character:GetChildren()) do
-				if part:IsA("BasePart") then
-					part.Anchored = true
-				end
-			end
-			while LocalPlayer.IsHeld.Value do
-				wait()
-			end
-			for _, part in pairs(character:GetChildren()) do
-				if part:IsA("BasePart") then
-					part.Anchored = false
-				end
-			end
-		end
-	end
-end)
-function antiBlob1F()
-    workspace.DescendantAdded:Connect(function(toy)
-        if toy.Name == "CreatureBlobman" and toy.Parent ~= inv and antiBlob1T then
-            wait()
-            toy.LeftDetector:Destroy()
-            toy.RightDetector:Destroy()
-        end
-    end)
-end
 
 	usertab:CreateSection("Protections")
 
